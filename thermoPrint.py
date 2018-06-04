@@ -24,7 +24,8 @@ c = MinTemp + (MaxTemp - MinTemp) * 0.4242
 d = MinTemp + (MaxTemp - MinTemp) * 0.8182
 
 
-num_lines = sum(1 for line in open('rocketPod.txt'))
+lines = sum(1 for line in open('rocketPod.txt'))
+num_lines = int(lines/2)
 #num_lines = 1
 
 print('num_lines: {}' .format(num_lines))
@@ -132,8 +133,8 @@ def animate(i): #this i is going to have to be line indexes
     print ("Printing data line: {}" .format(i))
     if(i!=0):
         for j in range (0, 64):
-            pixels[j] = float(dataLines[i][(j*6):((j*6)+5)])
-            print('{} ' .format(dataLines[i][(j*6):((j*6)+5)]), end = ' ')
+            pixels[j] = float(dataLines[i*2][(j*6):((j*6)+5)])
+            print('{} ' .format(dataLines[i*2][(j*6):((j*6)+5)]), end = ' ')
         InterpolateRows()
         InterpolateCols()
         for j in range(0,nx):
@@ -146,6 +147,6 @@ def animate(i): #this i is going to have to be line indexes
     im.set_data(data)
     return im
 
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=num_lines, interval=200, repeat=True)
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=num_lines, interval=50, repeat=True)
 plt.colorbar()
 plt.show()
